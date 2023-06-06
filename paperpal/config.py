@@ -1,4 +1,4 @@
-from topic import Topic
+from paperpal.topic import Topic
 import json, os
 
 CONFIG_PATH = '/home/ubuntu/paperpal/config.json'

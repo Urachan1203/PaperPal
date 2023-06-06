@@ -1,5 +1,5 @@
-from config import Config
-from topic import Topic
+from paperpal.config import Config
+from paperpal.topic import Topic
 
 def add_topic(topic_name : str)->bool:
     config : Config = Config()

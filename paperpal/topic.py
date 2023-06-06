@@ -1,4 +1,6 @@
-from config import Config
+import sys
+# sys.path.append("./")
+from paperpal.config import Config
 
 class Topic:
     def __init__(self, topic_name : str) -> None:

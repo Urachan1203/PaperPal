@@ -1,3 +1,5 @@
+import sys
+sys.path.append("./")
 from flask import Flask, request
 from paperpal.topic import Topic
 import paperpal.api as api
