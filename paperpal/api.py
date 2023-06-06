@@ -1,10 +1,8 @@
 from paperpal.config import Config
 from paperpal.topic import Topic
 
-def add_topic(topic_name : str)->bool:
+def add_topic(topic : Topic)->bool:
     config : Config = Config()
-    topic : Topic = Topic(topic_name)
-    
     if topic.is_duplicate(config) == -1:
         config.registered_topics.append(topic)
         config.save_to_json()
@@ -12,10 +10,8 @@ def add_topic(topic_name : str)->bool:
     else:
         return False
     
-def remove_topic(topic_name : str)->bool:
+def remove_topic(topic : Topic)->bool:
     config : Config = Config()
-    topic : Topic = Topic(topic_name)
-    
     idx : int = topic.is_duplicate(config)
     if idx == -1: return False
     else:

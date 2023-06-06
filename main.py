@@ -27,9 +27,19 @@ def get_summary(result):
         'username' : "bot-daily-thesis",
         'content' : gpt_query_txt
     }
-    summary = requests.post(QUERY_API_ENDPOINT, json=gpt_query_json, timeout=20)
-    summary = summary.text.json()['response']
-    # summary = response['choices'][0]['message']['content']
+    # summary = requests.post(QUERY_API_ENDPOINT, json=gpt_query_json, timeout=90)
+    # print(summary)
+    # summary = summary.text.json()['response']
+    openai.api_key="not required"
+    openai.api_base=QUERY_API_ENDPOINT
+    response = openai.ChatCompletion.create(
+    	model="vicuna-13b",
+    	messages=[
+    		{"role": "user", "content": gpt_query_txt},
+    	],
+    )
+    summary = response['choices'][0]['message']['content'].strip()
+    print(summary)
     title_en = result.title
     title, *body = summary.split('\n')
     body = '\n'.join(body)
@@ -44,7 +54,7 @@ def main(event, context):
     config : Config = Config()
     
     keywords = [topic.topic_name for topic in config.registered_topics]
-
+    print(keywords)
     for j, keyword in enumerate(keywords):
         #queryを用意、今回は、三種類のqueryを用意
         query =f'ti:%22 {keyword} %22'
