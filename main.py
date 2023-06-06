@@ -6,6 +6,8 @@ import openai
 import random
 import requests
 
+from paperpal.config import Config
+
 SLACK_CHANNEL = "#fun-daily-thesis"
 SLACK_API_KEY=os.environ.get('SLACK_API_KEY')
 QUERY_API_ENDPOINT=os.environ.get('QUERY_API_ENDPOINT')
@@ -39,8 +41,9 @@ def get_summary(result):
 def main(event, context):
     # Slack APIクライアントを初期化する
     client = WebClient(token=SLACK_API_KEY)
-
-    keywords = ['Deep Learning', 'Virtual Reality', 'Autonomous Vehicle']
+    config : Config = Config()
+    
+    keywords = [topic.topic_name for topic in config.registered_topics]
 
     for j, keyword in enumerate(keywords):
         #queryを用意、今回は、三種類のqueryを用意

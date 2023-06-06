@@ -22,3 +22,7 @@ def remove_topic(topic_name : str)->bool:
         config.registered_topics.pop(idx)
         config.save_to_json()
         return True
+
+def get_topics()->list[Topic]:
+    config : Config = Config()
+    return config.registered_topics
