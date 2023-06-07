@@ -7,6 +7,7 @@ import random
 import requests
 
 from paperpal.config import Config
+import paperpal.slack as slack
 
 SLACK_CHANNEL = "#fun-daily-thesis"
 SLACK_API_KEY=os.environ.get('SLACK_API_KEY')
@@ -32,6 +33,7 @@ def get_summary(result):
     # summary = summary.text.json()['response']
     openai.api_key="not required"
     openai.api_base=QUERY_API_ENDPOINT
+    print(openai.api_base)
     response = openai.ChatCompletion.create(
     	model="vicuna-13b",
     	messages=[
@@ -57,7 +59,7 @@ def main(event, context):
     print(keywords)
     for j, keyword in enumerate(keywords):
         #queryを用意、今回は、三種類のqueryを用意
-        query =f'ti:%22 {keyword} %22'
+        query =f'all:%22 {keyword} %22'
 
         # arxiv APIで最新の論文情報を取得する
         search = arxiv.Search(
@@ -72,7 +74,12 @@ def main(event, context):
             result_list.append(result)
         #ランダムにnum_papersの数だけ選ぶ
         num_papers = 1
-        results = random.sample(result_list, k=num_papers)
+        try:
+       	    print(result_list)
+       	    results = random.sample(result_list, k=num_papers)
+       	except ValueError:
+       	    slack.send_msg(f"No search results found.\n Keyword : {keyword}")
+       	    continue
         
         # 論文情報をSlackに投稿する
         for i, result in enumerate(results):

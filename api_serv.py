@@ -16,7 +16,7 @@ def add_topic()->dict:
         # slack.send_msg(f"Add topic : {add_topic_str}")
         return {
         "response_type" : "in_channel",
-        "text" : f"Add topic : {add_topic_str}"
+        "text" : f"Added topic : {add_topic_str}"
         }
     else : 
         # slack.send_msg(f"Failed to add topic : {add_topic_str}")
@@ -35,19 +35,19 @@ def remove_topic()->bool:
         # slack.send_msg(f"Remove topic : {remove_topic_str}")
         return {
         "response_type" : "in_channel",
-        "text" : f"Remove topic : {remove_topic_str}"
+        "text" : f"Deleted topic : {remove_topic_str}"
 	}
     else :
         # slack.send_msg(f"Failed to remove topic : {remove_topic_str}") 
         return {
         "response_type" : "in_channel",
-        "text" : f"Failed to remove topic : {remove_topic_str} does not exist."
+        "text" : f"Failed to delete topic : {remove_topic_str} does not exist."
         }
     
 @app.route('/api/gettopics', methods=['POST'])
 def get_topics()->bool:
     topics : list[Topic] = api.get_topics()
-    msg : str = "Registered Topics : "
+    msg : str = "Registered topics : "
     for i, topic in enumerate(topics):
         msg += f"{topic.topic_name}"
         if i + 1 != len(topics) : msg += ", "
