@@ -1,14 +1,14 @@
 # PaperPal
 A Slack bot introduces a new paper.
 
-# Usage
-## main
+## Usage
+### main
 ```
 $ export QUERY_API_ENDPOINT=<your api endpoint>
 $ export SLACK_API_KEY=<your slack api key>
 $ python main.py
 ```
-## Slack API Serv
+### Slack API Serv
 ```
 $ tmux new -s apisrv
 
@@ -16,7 +16,7 @@ $ tmux new -s apisrv
 $ python api_srv.py
 ```
 
-# Use cron
+## Use cron
 ```
 QUERY_API_ENDPOINT=<yout api endpoint>
 SLACK_API_KEY=<our slack api key>
